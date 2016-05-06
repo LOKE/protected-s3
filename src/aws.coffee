@@ -6,6 +6,7 @@ getFile = (bucket, fileName, cb) ->
     key:    process.env.ACCESS_KEY
     secret: process.env.SECRET_KEY
     bucket: bucket
+    region: process.env.REGION
 
   client.getFile "/#{fileName}", cb
 
