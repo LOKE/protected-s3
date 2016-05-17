@@ -25,7 +25,7 @@ returnFile = (bucket) -> (req, res) ->
   fileName = req.params[0] or 'index.html'
 
   # as we are loading from S3 safe to assume all files require extensions
-  if (path.extname(fileName) === '')
+  if (path.extname(fileName) == '')
     fileName = path.join(fileName, 'index.html')
 
   getFile bucket, fileName, (err, awsRes) ->
