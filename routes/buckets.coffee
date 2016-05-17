@@ -1,9 +1,10 @@
+path           = require 'path'
 express        = require 'express'
-
 {
   getFile
   #getFiles
 } = require '../src/aws'
+
 
 {ensureLoggedIn}        = require 'connect-ensure-login'
 
@@ -22,6 +23,10 @@ router.get '/buckets', ensureLoggedIn('/index'), (req, res) ->
 
 returnFile = (bucket) -> (req, res) ->
   fileName = req.params[0] or 'index.html'
+
+  # as we are loading from S3 safe to assume all files require extensions
+  if (path.extname(fileName) === '')
+    fileName = path.join(fileName, 'index.html')
 
   getFile bucket, fileName, (err, awsRes) ->
     if err
